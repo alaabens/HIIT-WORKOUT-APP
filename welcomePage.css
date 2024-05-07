@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #442e69, #e9b5d2);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.HIIT-workout-app {
+    text-align: center;
+}
+
+.HIIT-workout-app h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.HIIT-workout-app p {
+    font-size: 1.2rem;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 600px;
+}
+
+.icon {
+    text-align: center;
+}
+
+.icon img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 30px; 
+}
+
+button {
+    background-color: #895c94;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 40px; 
+}
+
+button:hover {
+    background-color: #e0a6c6;
+}
+
+.signin-signup {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.signin-signup .prompt {
+    color: white;
+    font-size: 1.2rem; /* Adjust the font size */
+    margin-bottom: 10px;
+    display: inline-block; /* Ensure buttons are displayed next to the text */
+    margin-right: 10px; /* Add some spacing between the text and buttons */
+}

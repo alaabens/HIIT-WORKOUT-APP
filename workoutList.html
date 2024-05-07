@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIIT Workout App</title>
+    <link rel="stylesheet" href="workoutList.css">
+</head>
+<body> 
+    <div class="container">
+        <div class="HIIT-workout-app">
+            <h2>HIIT-Workout List <img src="images/notes.png" class="small-image"></h2>    
+            <div class="row">
+                <input type="text" id="name" placeholder="Exercise Name">
+                <input type="text" id="description" placeholder="Description">
+                <button onclick="addExercise()">Add</button>
+            </div>
+            <ul id="list-container">
+                <!-- Workout items will be added here -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script>
+        function addExercise() {
+            var name = document.getElementById('name').value.trim();
+            var description = document.getElementById('description').value.trim();
+
+            if (name === '' || description === '') {
+                alert('Sorry, you must write something in all fields.');
+                return;
+            }
+
+            var workout = { name: name, description: description };
+            var savedWorkouts = JSON.parse(localStorage.getItem('savedWorkouts')) || [];
+            savedWorkouts.push(workout);
+            localStorage.setItem('savedWorkouts', JSON.stringify(savedWorkouts));
+
+            var li = document.createElement('li');
+            var exerciseDetails = document.createTextNode(name + ' - ' + description);
+            li.appendChild(exerciseDetails);
+
+            var startButton = document.createElement('button');
+            startButton.textContent = 'Start Workout';
+            startButton.onclick = function() {
+                window.location.href = 'setTimer.html';
+            };
+            li.appendChild(startButton);
+
+            document.getElementById('list-container').appendChild(li);
+
+            document.getElementById('name').value = '';
+            document.getElementById('description').value = '';
+        }
+    </script>
+</body>
+</html>

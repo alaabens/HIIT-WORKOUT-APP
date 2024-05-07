@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIIT Workout App - sign in/sign up page</title>
+    <link rel="stylesheet" href="createAccount.css"> 
+    <script src="https://kit.fontawesome.com/924d11e8cd.js" crossorigin="anonymous"></script>
+</head>
+<body> 
+   <div class="container">
+    <div class="form-box">
+        <h1 id="title">Sign up</h1>
+        <form>
+            <div class="input-group">
+                <div class="input-field" id="nameField">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" id="username" placeholder="Name">
+                </div>
+
+                <div class="input-field">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email">
+                </div>
+
+                <div class="input-field">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+                <p id="greeting">Welcome, Guest!</p>
+                <p>Lost password <a href="#">Click Here!</a></p>
+            </div>
+            <div class="btn-field">
+                <button type="button" id="signupBtn">Sign up</button>
+                <button type="button" id="signinBtn" class="disable">Sign in</button>
+            </div>
+        </form>
+    </div>
+   </div>
+<script src="main.js"></script>
+<script>
+let signupBtn = document.getElementById("signupBtn");
+let signinBtn = document.getElementById("signinBtn");
+let nameField = document.getElementById("nameField");
+let title = document.getElementById("title");
+let greeting = document.getElementById("greeting");
+
+signinBtn.onclick = function(){
+    nameField.style.maxHeight = "0"; 
+    title.innerHTML = "Sign In";
+    signupBtn.classList.add("disable");
+    signinBtn.classList.remove("disable");
+    // Navigate to welcomePage2 when sign in button is clicked
+    window.location.href = 'welcomePage2.html';
+}
+
+
+signupBtn.onclick = function(){
+    nameField.style.maxHeight = "60px"; 
+    title.innerHTML = "Sign Up";
+    signupBtn.classList.remove("disable");
+    signinBtn.classList.add("disable");
+    // Navigate to welcomePage2 when sign up button is clicked
+    window.location.href = 'welcomePage2.html';
+}
+
+// Function to greet user
+function greetUser() {
+    let username = document.getElementById("username").value;
+    if (username.trim() !== "") {
+        greeting.innerHTML = "Hello, " + username + "!";
+    } else {
+        greeting.innerHTML = "Welcome, Guest!";
+    }
+}
+
+// Add event listener to sign up button
+document.getElementById("signupBtn").addEventListener("click", greetUser);
+
+</script>
+</body>
+</html>

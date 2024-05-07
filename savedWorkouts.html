@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Workouts</title>
+    <link rel="stylesheet" href="savedWorkouts.css">
+</head>
+<body> 
+    <div class="container">
+        <div class="saved-workouts">
+            <h2>Saved Workouts</h2>    
+            <ul id="saved-list-container">
+                <!-- Saved workout items will be added here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function displaySavedWorkouts() {
+            const savedWorkouts = JSON.parse(localStorage.getItem('savedWorkouts')) || [];
+            const savedWorkoutsList = document.getElementById('saved-list-container');
+
+            savedWorkouts.forEach(workout => {
+                const li = document.createElement('li');
+                li.textContent = workout.name + ' - ' + workout.description;
+
+                const startButton = document.createElement('button');
+                startButton.textContent = 'Start Workout';
+                startButton.onclick = function() {
+                    window.location.href = 'setTimer.html';
+                };
+                li.appendChild(startButton);
+
+                const deleteIcon = document.createElement('span');
+                deleteIcon.innerHTML = "&#10006;";
+                deleteIcon.classList.add('delete-icon');
+                deleteIcon.onclick = function() {
+                    savedWorkouts.splice(savedWorkouts.indexOf(workout), 1);
+                    localStorage.setItem('savedWorkouts', JSON.stringify(savedWorkouts));
+                    savedWorkoutsList.removeChild(li);
+                };
+                li.appendChild(deleteIcon);
+
+                savedWorkoutsList.appendChild(li);
+            });
+        }
+
+        window.onload = displaySavedWorkouts;
+    </script>
+</body>
+</html>

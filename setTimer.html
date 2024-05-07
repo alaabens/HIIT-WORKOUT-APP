@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIIT Workout App - start workout</title>
+    <link rel="stylesheet" href="setTimer.css"> 
+</head>
+<body> 
+    <div class="container">
+        <h1 class="title">Workout Rounds Timer</h1>
+        <div class="workout-timer-container">
+            <div class="inputs-container">
+                <div class="input-group flex">
+                    <label class="roundTime">Round length</label>
+                    <input type="number" id="roundTime" placeholder="minutes" />
+                </div>
+                <div class="input-group flex">
+                    <label class="restTime">Rest length</label>
+                    <input type="number" id="restTime" placeholder="minutes" />
+                </div>
+                <a id="startLink" href="startWorkout.html">
+                    <button class="btn" id="start">Start</button>
+                </a>
+            </div>
+        </div>
+        <h4>Set the duration of your Rounds and Rest Time</h4>
+        <h2 id="start-countdown"></h2>
+        <h2 id="theTime"></h2>
+    </div>
+   
+<script src="main.js"></script>
+<script>
+    // Function to update the start button link with query parameters
+    function updateStartButtonLink() {
+        const roundTime = document.getElementById('roundTime').value;
+        const restTime = document.getElementById('restTime').value;
+        const startLink = document.getElementById('startLink');
+        startLink.href = `startWorkout.html?roundTime=${roundTime}&restTime=${restTime}`;
+    }
+
+    // Attach the updateStartButtonLink function to input change events
+    document.getElementById('roundTime').addEventListener('change', updateStartButtonLink);
+    document.getElementById('restTime').addEventListener('change', updateStartButtonLink);
+</script>
+</body>
+</html>

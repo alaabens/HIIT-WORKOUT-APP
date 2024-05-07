@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <link rel="stylesheet" href="startWorkout.css">
+</head>
+<body>
+    <div class="container">
+        <div id="timer" class="timer">00:00</div>
+        <div id="status" class="status"></div> <!-- New div to display status -->
+        <div class="button-container">
+            <button id="startBtn" class="btn" onclick="startTimer()">Start</button>
+            <button id="pauseBtn" class="btn" onclick="pauseTimer()">Pause</button>
+            <button id="stopBtn" class="btn" onclick="stopTimer()">Stop</button>
+        </div>
+    </div>
+
+    <script>
+        let timerInterval;
+        let startTime;
+        let elapsedTime = 0;
+        let running = false;
+        let isWorkoutTime = true; // Flag to track if it's workout time or rest time
+
+        // Function to start the timer with specified duration
+        function startTimer(duration) {
+            if (!running) {
+                startTime = Date.now() - elapsedTime;
+                timerInterval = setInterval(updateTime, 1000);
+                running = true;
+            }
+        }
+
+        // Function to update the timer every second
+        function updateTime() {
+            const currentTime = Date.now();
+            elapsedTime = currentTime - startTime;
+            displayTime(elapsedTime);
+
+            // Update status based on whether it's workout time or rest time
+            if (isWorkoutTime) {
+                document.getElementById("status").innerText = "Workout started";
+            } else {
+                document.getElementById("status").innerText = "Rest time";
+            }
+
+            // Check if it's time to switch between workout and rest
+            if (elapsedTime >= (isWorkoutTime ? roundTime : restTime) * 60 * 1000) {
+                isWorkoutTime = !isWorkoutTime;
+                startTime = currentTime;
+            }
+        }
+
+        // Function to display the time in MM:SS format
+        function displayTime(milliseconds) {
+            const totalSeconds = Math.floor(milliseconds / 1000);
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            const formattedTime = padTime(minutes) + ":" + padTime(seconds);
+            document.getElementById("timer").innerText = formattedTime;
+        }
+
+        // Function to pad single digit numbers with leading zeros
+        function padTime(time) {
+            return time < 10 ? "0" + time : time;
+        }
+
+        // Function to pause the timer
+        function pauseTimer() {
+            if (running) {
+                clearInterval(timerInterval);
+                running = false;
+            }
+        }
+
+        // Function to stop the timer and reset it to 00:00
+        function stopTimer() {
+            clearInterval(timerInterval);
+            running = false;
+            elapsedTime = 0;
+            displayTime(elapsedTime);
+            document.getElementById("status").innerText = "";
+        }
+
+        // Retrieve workout and rest time from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const roundTime = parseInt(urlParams.get('roundTime')) || 0;
+        const restTime = parseInt(urlParams.get('restTime')) || 0;
+
+        // Start the timer with the workout time
+        startTimer(roundTime * 60 * 1000);
+    </script>
+</body>
+</html>
