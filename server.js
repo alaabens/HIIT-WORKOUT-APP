@@ -4,7 +4,7 @@ const app = express()
 
 app.get("/",(req,res)=>{
     app.use(express.static("client"))
-    res.sendFile(`${import.meta.dirname}/client/welcomePage.html`)
+    res.sendFile(`${import.meta.dirname}/client/welcomePage/welcomePage.html`)
 })
 
 app.listen(port, () => {
